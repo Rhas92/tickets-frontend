@@ -1,16 +1,104 @@
-# React + Vite
+# 🎫 Tickets Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **React** single-page app that puts a friendly face on the
+[tickets-api](https://github.com/Rhas92/tickets-api) backend — log in with JWT
+and manage support tickets from the browser.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+</div>
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🔐 **JWT login** against the Spring Boot API
+- 📋 **List** tickets (paginated response from the backend)
+- ➕ **Create** tickets with status & priority
+- 🗑️ **Delete** tickets (admin only, enforced by the API)
+- 🌐 **Deploy-ready**: API URL configurable via environment variable
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Area      | Tech                       |
+| --------- | -------------------------- |
+| Library   | React 19                   |
+| Build     | Vite                       |
+| Language  | JavaScript (JSX)           |
+| HTTP      | Native `fetch`             |
+| Auth      | JWT stored in localStorage |
+ 
+---
+
+## 🗂️ Project Structure
+
+A clean, layered structure — each folder has one responsibility:
+
+```
+src/
+├── api/          # HTTP layer: base client + per-resource calls
+│   ├── client.js #   fetch wrapper (base URL, JWT, JSON, errors)
+│   ├── auth.js   #   POST /login
+│   └── tickets.js#   ticket CRUD calls
+├── pages/        # full screens
+│   ├── Login.jsx
+│   └── Tickets.jsx
+├── App.jsx       # decides which screen to show (token or not)
+└── main.jsx      # entry point — mounts React into #root
+```
+
+> The `api/` layer centralizes all backend communication, so screens describe
+> *what* they need, not *how* to fetch it — the same separation-of-concerns idea
+> as the backend's service/repository layers.
+ 
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js 20+**
+- The [tickets-api](https://github.com/Rhas92/tickets-api) backend running
+  (locally on `http://localhost:8080`, or deployed)
+### Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+The app starts on **http://localhost:5173**.
+Log in with the seeded demo user: `admin` / `admin123`.
+
+### Configuration
+
+The backend URL is read from an environment variable, with a safe local default:
+
+| Variable        | Description                 | Default                 |
+| --------------- | --------------------------- | ----------------------- |
+| `VITE_API_URL`  | Base URL of the tickets API | `http://localhost:8080` |
+
+For production, set `VITE_API_URL` to the deployed API URL — no code change needed.
+
+### Build for production
+
+```bash
+npm run build      # outputs static files to dist/
+npm run preview    # preview the production build locally
+```
+
+The contents of `dist/` can be hosted on any static host (Render Static Site,
+Netlify, Vercel, GitHub Pages…).
+ 
+---
+
+## 🔗 Related
+
+- Backend API: [Rhas92/tickets-api](https://github.com/Rhas92/tickets-api)
+---
+
+<div align="center">
+<sub>Built while learning full-stack — backend-first, one commit at a time. 🚀</sub>
+</div>
