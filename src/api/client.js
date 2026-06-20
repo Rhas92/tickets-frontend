@@ -1,5 +1,5 @@
 // Base URL of your Spring API
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 /**
  * Thin fetch wrapper: prepends the base URL, attaches the JWT (if any),
